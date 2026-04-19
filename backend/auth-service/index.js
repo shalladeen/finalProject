@@ -6,9 +6,9 @@ import { expressMiddleware } from '@apollo/server/express4';
 import bodyParser from 'body-parser';
 
 import connectDB from './db.js';
-import typeDefs from './auth-service/Schema/typeDefs.js';
-import resolvers from './auth-service/Schema/resolvers.js';
-import getUser from './auth-service/middleware/auth.js';
+import typeDefs from './Schema/typeDefs.js';
+import resolvers from './Schema/resolvers.js';
+import getUser from './middleware/auth.js';
 
 const app = express();
 const PORT = process.env.PORT || 4001;
