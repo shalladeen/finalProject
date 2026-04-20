@@ -4,26 +4,19 @@ import CommunityPanel from "./microfrontends/community/CommunityPanel";
 import EventsPanel from "./microfrontends/events/EventsPanel";
 
 const tabs = [
-  {
-    id: "auth",
-    label: "Auth",
-    title: "Authentication & User Management",
-  },
-  {
-    id: "community",
-    label: "Engagement",
-    title: "Community & Business Engagement",
-  },
-  {
-    id: "events",
-    label: "Events",
-    title: "Events & Administration",
-  },
+  { id: "auth", label: "Auth", title: "Authentication & User Management" },
+  { id: "community", label: "Engagement", title: "Community & Business Engagement" },
+  { id: "events", label: "Events", title: "Events & Administration" },
 ];
 
 function App() {
   const [activeTab, setActiveTab] = useState("auth");
   const [activeRole, setActiveRole] = useState("resident");
+
+  // Called after successful login or register — switches to community tab
+  const handleAuthSuccess = () => {
+    setActiveTab("community");
+  };
 
   return (
     <div className="min-h-screen bg-slate-100 text-ink">
@@ -72,7 +65,11 @@ function App() {
 
         <main className="flex-1 py-6">
           {activeTab === "auth" && (
-            <AuthPanel activeRole={activeRole} onRoleChange={setActiveRole} />
+            <AuthPanel
+              activeRole={activeRole}
+              onRoleChange={setActiveRole}
+              onAuthSuccess={handleAuthSuccess}
+            />
           )}
           {activeTab === "community" && <CommunityPanel activeRole={activeRole} />}
           {activeTab === "events" && <EventsPanel />}
