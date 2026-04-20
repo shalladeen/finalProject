@@ -1,154 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --green: #2d6a4f;
+  --green-light: #d8f3dc;
+  --green-mid: #74c69d;
+  --amber: #e76f51;
+  --amber-light: #fde8e0;
+  --ink: #1a1a2e;
+  --ink-soft: #4a4a6a;
+  --surface: #f7f7f5;
+  --white: #ffffff;
+  --border: #e2e2dc;
+  --radius: 12px;
+}
+
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    @apply m-0 bg-slate-100 font-body text-ink antialiased;
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--surface);
+    color: var(--ink);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
   }
 
-  * {
-    box-sizing: border-box;
-  }
-
-  input,
-  select,
-  button {
-    font: inherit;
-  }
+  * { box-sizing: border-box; }
+  input, select, button, textarea { font: inherit; }
 }
 
 @layer components {
-  .panel {
-    @apply rounded-md border border-slate-300 bg-white p-0 shadow-none;
+
+  /* ── Navbar ── */
+  .navbar {
+    @apply sticky top-0 z-50 flex items-center justify-between px-6 py-4;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
   }
 
-  .hero-panel {
-    @apply grid gap-4 rounded-md border border-slate-300 bg-white p-5 lg:grid-cols-[1.2fr_0.8fr];
+  .navbar-brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--green);
+    letter-spacing: -0.02em;
   }
 
-  .hero-title {
-    @apply text-3xl font-semibold text-slate-900 sm:text-4xl;
+  .navbar-brand span {
+    color: var(--amber);
   }
 
-  .hero-copy {
-    @apply mt-3 max-w-2xl text-sm leading-6 text-slate-700 sm:text-base;
+  .navbar-user {
+    @apply flex items-center gap-3;
   }
 
-  .hero-metrics {
-    @apply grid gap-3 self-start sm:grid-cols-3 lg:grid-cols-1;
+  .navbar-badge {
+    @apply flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium;
+    background: var(--green-light);
+    color: var(--green);
+    border: 1px solid var(--green-mid);
   }
 
-  .hero-pill {
-    @apply flex items-center gap-3 rounded border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-700;
+  .logout-btn {
+    @apply rounded-full px-4 py-1.5 text-sm font-medium transition;
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--border);
+  }
+  .logout-btn:hover {
+    background: var(--surface);
+    color: var(--ink);
   }
 
-  .hero-pill-value {
-    @apply inline-flex min-w-10 items-center justify-center rounded border border-slate-400 bg-white px-2 py-1 text-sm font-bold text-slate-800;
-  }
-
+  /* ── Tab Navigation ── */
   .tab-bar {
-    @apply mt-6 grid gap-3 md:grid-cols-3;
+    @apply flex gap-1 px-6 pt-4;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
   }
 
   .tab-btn {
-    @apply rounded border border-slate-300 bg-white px-4 py-3 text-left transition hover:bg-slate-50;
+    @apply relative px-5 py-3 text-sm font-medium transition;
+    color: var(--ink-soft);
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    cursor: pointer;
+  }
+
+  .tab-btn:hover {
+    color: var(--ink);
   }
 
   .tab-btn-active {
-    @apply border-slate-500 bg-slate-100;
+    color: var(--green);
+    border-bottom-color: var(--green);
+    font-weight: 600;
   }
 
-  .tab-label {
-    @apply block text-xs font-semibold uppercase tracking-[0.15em] text-slate-600;
-  }
+  .tab-label { display: none; }
 
   .tab-title {
-    @apply mt-1 block text-base font-semibold text-slate-800;
+    @apply block;
   }
 
-  .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.14em] text-slate-600;
+  /* ── Layout ── */
+  .page-content {
+    @apply mx-auto w-full max-w-6xl px-6 py-8;
   }
 
-  .section-title {
-    @apply mt-2 text-2xl font-semibold text-slate-900;
-  }
-
-  .section-copy {
-    @apply mt-2 text-sm leading-6 text-slate-600;
+  /* ── Panels & Cards ── */
+  .panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
   }
 
   .card {
-    @apply rounded border border-slate-300 bg-slate-50 p-4;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: box-shadow 0.15s;
+  }
+
+  .card:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
 
   .card-title {
-    @apply text-lg font-semibold text-slate-900;
+    @apply text-base font-semibold;
+    color: var(--ink);
+    margin-top: 0.25rem;
   }
 
+  /* ── Section typography ── */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-widest;
+    color: var(--green);
+  }
+
+  .section-title {
+    @apply text-xl font-semibold;
+    color: var(--ink);
+    margin-top: 0.25rem;
+  }
+
+  .section-copy {
+    @apply text-sm leading-relaxed;
+    color: var(--ink-soft);
+    margin-top: 0.25rem;
+  }
+
+  /* ── Buttons ── */
+  .primary-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition;
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+  }
+  .primary-btn:hover { background: #245a3f; }
+  .primary-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .secondary-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition;
+    background: var(--white);
+    color: var(--ink);
+    border: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .secondary-btn:hover { background: var(--surface); }
+
+  .danger-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition;
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    cursor: pointer;
+  }
+
+  /* ── Form fields ── */
   .field {
-    @apply flex flex-col gap-2 text-sm font-medium text-slate-700;
+    @apply flex flex-col gap-1.5 text-sm font-medium;
+    color: var(--ink);
   }
 
   .field input,
-  .field select {
-    @apply rounded border border-slate-300 bg-white px-3 py-2.5 outline-none transition focus:border-slate-500;
+  .field select,
+  .field textarea {
+    @apply w-full rounded-lg px-3 py-2.5 text-sm outline-none transition;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--ink);
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
   }
 
-  .primary-btn {
-    @apply inline-flex items-center justify-center rounded border border-slate-700 bg-slate-700 px-4 py-2.5 font-semibold text-white transition hover:bg-slate-800;
-  }
-
-  .secondary-btn {
-    @apply inline-flex items-center justify-center rounded border border-slate-300 bg-white px-4 py-2.5 font-semibold text-slate-700 transition hover:bg-slate-50;
-  }
-
-  .role-card {
-    @apply w-full rounded border border-slate-300 bg-slate-50 p-4 text-left transition hover:bg-white;
-  }
-
-  .role-card-active {
-    @apply border-slate-500 bg-white;
-  }
-
+  /* ── Chips / Badges ── */
   .chip {
-    @apply inline-flex rounded border border-slate-300 bg-slate-100 px-2 py-1 text-xs font-medium uppercase tracking-[0.08em] text-slate-700;
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium;
+    background: var(--surface);
+    color: var(--ink-soft);
+    border: 1px solid var(--border);
+  }
+
+  .chip-green {
+    background: var(--green-light);
+    color: var(--green);
+    border-color: var(--green-mid);
   }
 
   .chip-strong {
-    @apply border-slate-700 bg-slate-700 text-white;
+    background: var(--green);
+    color: var(--white);
+    border-color: var(--green);
   }
 
   .chip-alert {
-    @apply border-rose-300 bg-rose-50 text-rose-700;
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+  }
+
+  .chip-amber {
+    background: var(--amber-light);
+    color: var(--amber);
+    border-color: #f4a261;
   }
 
   .chip-teal {
-    @apply border-teal-300 bg-teal-50 text-teal-800;
+    background: #f0fdfa;
+    color: #0f766e;
+    border-color: #99f6e4;
   }
 
-  .stat {
-    @apply text-sm font-medium text-slate-500;
+  /* ── Auth page ── */
+  .auth-wrap {
+    @apply mx-auto mt-8 max-w-4xl;
   }
 
-  .sentiment-box {
-    @apply mt-4 rounded border border-teal-200 bg-teal-50 p-3;
+  .auth-hero {
+    @apply mb-8 text-center;
   }
 
+  .auth-hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  .auth-hero-copy {
+    @apply mt-3 text-base;
+    color: var(--ink-soft);
+  }
+
+  .role-card {
+    @apply w-full rounded-xl p-4 text-left transition;
+    border: 2px solid var(--border);
+    background: var(--white);
+    cursor: pointer;
+  }
+
+  .role-card:hover {
+    border-color: var(--green-mid);
+    background: var(--green-light);
+  }
+
+  .role-card-active {
+    border-color: var(--green);
+    background: var(--green-light);
+  }
+
+  /* ── Metrics ── */
   .metric-card {
-    @apply flex flex-col rounded border border-slate-300 bg-slate-50 p-4;
+    @apply flex flex-col rounded-xl p-5;
+    background: var(--white);
+    border: 1px solid var(--border);
   }
 
   .metric-value {
-    @apply text-3xl font-semibold text-slate-900;
+    @apply text-3xl font-semibold;
+    color: var(--ink);
+    font-family: 'DM Serif Display', serif;
   }
 
   .metric-label {
-    @apply mt-2 text-sm uppercase tracking-[0.08em] text-slate-500;
+    @apply mt-1 text-xs font-medium uppercase tracking-widest;
+    color: var(--ink-soft);
+  }
+
+  /* ── Sentiment box ── */
+  .sentiment-box {
+    @apply mt-3 rounded-lg p-3;
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+  }
+
+  /* ── Stat ── */
+  .stat {
+    @apply text-xs font-medium;
+    color: var(--ink-soft);
+  }
+
+  /* ── Empty states ── */
+  .empty-state {
+    @apply flex flex-col items-center justify-center rounded-xl py-12 text-center;
+    border: 2px dashed var(--border);
+  }
+
+  .empty-state-icon {
+    @apply text-4xl mb-3;
+  }
+
+  .empty-state-text {
+    @apply text-sm;
+    color: var(--ink-soft);
+  }
+
+  /* ── Alert/success banners ── */
+  .banner-error {
+    @apply rounded-xl px-4 py-3 text-sm font-medium;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+  }
+
+  .banner-success {
+    @apply rounded-xl px-4 py-3 text-sm font-medium;
+    background: var(--green-light);
+    color: var(--green);
+    border: 1px solid var(--green-mid);
+  }
+
+  /* ── Loading ── */
+  .loading-wrap {
+    @apply flex items-center justify-center py-20;
+  }
+
+  .loading-dot {
+    @apply h-2 w-2 rounded-full;
+    background: var(--green);
+    animation: bounce 0.8s infinite alternate;
+  }
+
+  .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    from { transform: translateY(0); opacity: 0.4; }
+    to { transform: translateY(-8px); opacity: 1; }
   }
 }

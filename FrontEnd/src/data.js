@@ -7,14 +7,14 @@ export const roles = [
       "Share neighborhood updates, ask for help, and receive alerts tailored to nearby residents.",
   },
   {
-    id: "business",
+    id: "business_owner",
     name: "Business Owner",
     badge: "Listings, deals, customer engagement",
     description:
       "Promote offers, manage reviews, and learn how the community feels about your business.",
   },
   {
-    id: "organizer",
+    id: "community_organizer",
     name: "Community Organizer",
     badge: "Events, volunteers, engagement insights",
     description:
